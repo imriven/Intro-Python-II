@@ -26,6 +26,36 @@ to north.The smell of gold permeates the air. """,
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers.The only exit is to the south. """,
                      [Item("torch"), Item("whip")]),
+
+    'beach': Room("Beach", """You've found the long-lost treasure
+chamber! Sadly, it has already been completely emptied by
+earlier adventurers.The only exit is to the south. """,
+                     [Item("shell"), Item("sand")]),
+
+    'cabin': Room("Treasure Chamber", """You've found the long-lost treasure
+chamber! Sadly, it has already been completely emptied by
+earlier adventurers.The only exit is to the south. """,
+                     [Item("lighter"), Item("apple")]),
+
+    'meadow': Room("Treasure Chamber", """You've found the long-lost treasure
+chamber! Sadly, it has already been completely emptied by
+earlier adventurers.The only exit is to the south. """,
+                   [Item("cloth"), Item("4leafclover"), Item("sparklyvampire")]),
+
+    'forest': Room("Treasure Chamber", """You've found the long-lost treasure
+chamber! Sadly, it has already been completely emptied by
+earlier adventurers.The only exit is to the south. """,
+                     [Item("branch")]),
+
+    'secret': Room("Treasure Chamber", """You've found the long-lost treasure
+chamber! Sadly, it has already been completely emptied by
+earlier adventurers.The only exit is to the south. """,
+                     [Item(" ")]),
+
+    'lagoon': Room("Treasure Chamber", """You've found the long-lost treasure
+chamber! Sadly, it has already been completely emptied by
+earlier adventurers.The only exit is to the south. """,
+                     [Item("glowsnails")]),
 }
 
 
@@ -39,6 +69,21 @@ room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
+room['treasure'].e_to = room['secret']
+room['secret'].w_to = room['treasure']
+room['secret'].s_to = room['lagoon']
+room['lagoon'].n_to = room['secret']
+room['narrow'].s_to = room['forest']
+room['forest'].n_to = room['narrow']
+room['forest'].w_to = room['outside']
+room['forest'].e_to = room['meadow']
+room['meadow'].w_to = room['forest']
+room['outside'].s_to = room['beach']
+room['beach'].n_to = room['outside']
+room['outside'].w_to = room['cabin']
+room['cabin'].e_to = room['outside']
+
+
 
 #
 # Main
