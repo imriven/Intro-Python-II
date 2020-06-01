@@ -1,31 +1,31 @@
 from room import Room
 from player import Player
 from item import Item
-
+from color import Color
 # Declare all the rooms
 
 room = {
     'outside':  Room("Outside Cave Entrance",
                      "North of you, the cave mount beckons",
-                    [Item("candlestick"), Item("knife")] ),
+                     [Item("candlestick"), Item("knife")]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east. """,
-["chair"]),
+                     [Item("chair")]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm. """,
-["rock", "spear"]),
+                     [Item("rock"), Item("spear")]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
 to north.The smell of gold permeates the air. """,
-["gold", "herbs"]),
+                     [Item("gold"), Item("herbs")]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers.The only exit is to the south. """,
-["torch", "whip"]),
+                     [Item("torch"), Item("whip")]),
 }
 
 
@@ -56,6 +56,16 @@ p = Player("Roger", room["outside"])
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+
+#colors
+blue = Color.BLUE
+purple = Color.PURPLE
+color_end = Color.END
+cyan = Color.CYAN
+red = Color.RED
+green = Color.GREEN
+
 def change_room(direction):
     try:
         if direction == "n":
@@ -67,15 +77,17 @@ def change_room(direction):
         elif direction == "w":
             p.current_room = p.current_room.w_to
         else:
-            print("That movement is impossible!!!")
+            print(red + "That movement is impossible!!!" + color_end)
     except AttributeError:
-        print("cannot move in that direction from this room")
+        print(red + "cannot move in that direction from this room" + color_end)
+
 
 def item_in_room(room, item_name):
     for item in room.items:
         if item.name == item_name:
             return item
     return False
+
 
 def do_action(action, item):
     if action in ["take", "get"]:
@@ -85,17 +97,19 @@ def do_action(action, item):
             p.inventory.append(item_object)
             item_object.on_take()
         else:
-            print("no such item in here")
+            print(red + "no such item in here" + color_end)
+
 
 while True:
-    print(f"Room: {p.current_room.name}")
-    print(f"Description: {p.current_room.description}")
+    print(f"You Are: {p.current_room.name}")
+    print(f"You See: {p.current_room.description}")
     print("Items: ", end="")
     for i in p.current_room.items:
         print(i.name, end=" ")
     print()
     print()
-    user_input = input("What do you want to do? ").lower().split(" ")
+    user_input = input(
+        "Instructions: You may enter" + purple + " get/take item " + color_end + "to grab an item \nYou may press" + cyan + " n, s, e, or w " + color_end + "to enter a new room \nWhat do you want to do? ").lower().split(" ")
     print()
     if user_input[0] == "q":
         break
@@ -104,7 +118,7 @@ while True:
     elif len(user_input) == 2:
         do_action(*user_input)
     else:
-        print("unknown command")
-   
+        print(red + "unknown command" + color_end)
 
-print("Game Over :(")
+
+print(green + "Game Over :(" + color_end)
