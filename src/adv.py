@@ -7,7 +7,7 @@ from item import Item
 room = {
     'outside':  Room("Outside Cave Entrance",
                      "North of you, the cave mount beckons",
-                    ["candlestick", "knife"] ),
+                    [Item("candlestick"), Item("knife")] ),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east. """,
@@ -56,27 +56,55 @@ p = Player("Roger", room["outside"])
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+def change_room(direction):
+    try:
+        if direction == "n":
+            p.current_room = p.current_room.n_to
+        elif direction == "s":
+            p.current_room = p.current_room.s_to
+        elif direction == "e":
+            p.current_room = p.current_room.e_to
+        elif direction == "w":
+            p.current_room = p.current_room.w_to
+        else:
+            print("That movement is impossible!!!")
+    except AttributeError:
+        print("cannot move in that direction from this room")
+
+def item_in_room(room, item_name):
+    for item in room.items:
+        if item.name == item_name:
+            return item
+    return False
+
+def do_action(action, item):
+    if action in ["take", "get"]:
+        item_object = item_in_room(p.current_room, item)
+        if item_object:
+            p.current_room.items.remove(item_object)
+            p.inventory.append(item_object)
+            item_object.on_take()
+        else:
+            print("no such item in here")
+
 while True:
     print(f"Room: {p.current_room.name}")
     print(f"Description: {p.current_room.description}")
     print("Items: ", end="")
     for i in p.current_room.items:
-        print(i, end=" ")
+        print(i.name, end=" ")
     print()
     print()
-    user_input = input("Where do you want to go? ").lower()
+    user_input = input("What do you want to do? ").lower().split(" ")
     print()
-    if user_input == "q":
+    if user_input[0] == "q":
         break
-    elif user_input == "n":
-        p.current_room = p.current_room.n_to
-    elif user_input == "s":
-        p.current_room = p.current_room.s_to
-    elif user_input == "e":
-        p.current_room = p.current_room.e_to
-    elif user_input == "w":
-        p.current_room = p.current_room.w_to
+    if len(user_input) == 1:
+        change_room(*user_input)
+    elif len(user_input) == 2:
+        do_action(*user_input)
     else:
-        print("That movement is impossible!!!")
+        print("unknown command")
+   
 
 print("Game Over :(")
