@@ -45,7 +45,7 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-p = Player("Roger", room["outside"])
+p = Player("You", room["outside"])
 # Write a loop that:
 #
 # * Prints the current room name
@@ -88,6 +88,12 @@ def item_in_room(room, item_name):
             return item
     return False
 
+def player_has_item(item_name):
+    for item in p.inventory:
+        if item.name == item_name:
+            return item
+    return False
+
 
 def do_action(action, item):
     if action in ["take", "get"]:
@@ -98,21 +104,34 @@ def do_action(action, item):
             item_object.on_take()
         else:
             print(red + "no such item in here" + color_end)
+    elif action in ["drop"]:
+        item_object = player_has_item(item)
+        if item_object:
+            p.inventory.remove(item_object)
+            p.current_room.items.append(item_object)
+            item_object.on_drop()
+        else:
+            print(red + "you don't have this item in your inventory" + color_end)
+    elif action in ["show"]:
+        if item == "inventory":
+            print(f"{[i.name for i in p.inventory]}")
 
+instructions = "Instructions: You may type in" + purple + " get/take item " + color_end + "to grab an item \nYou can type in" + green + " drop item " + color_end + " to drop an item from your inventory. \nYou may press" + cyan + " n, s, e, or w " + color_end + "to enter a new room"
 
 while True:
     print(f"You Are: {p.current_room.name}")
     print(f"You See: {p.current_room.description}")
-    print("Items: ", end="")
-    for i in p.current_room.items:
-        print(i.name, end=" ")
-    print()
+    print(f"Items: {' / '.join([i.name for i in p.current_room.items])}")
     print()
     user_input = input(
-        "Instructions: You may enter" + purple + " get/take item " + color_end + "to grab an item \nYou may press" + cyan + " n, s, e, or w " + color_end + "to enter a new room \nWhat do you want to do? ").lower().split(" ")
+        "What do you want to do? \n type 'help' for more instructions ").lower().split(" ")
     print()
     if user_input[0] == "q":
         break
+    elif user_input[0] == "help":
+        print(instructions)
+        print()
+        continue
     if len(user_input) == 1:
         change_room(*user_input)
     elif len(user_input) == 2:
@@ -121,4 +140,4 @@ while True:
         print(red + "unknown command" + color_end)
 
 
-print(green + "Game Over :(" + color_end)
+print(blue + "Game Over :(" + color_end)
