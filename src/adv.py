@@ -50,3 +50,21 @@ p = Player("Roger", room["outside"])
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+while True:
+    print(p.current_room.name)
+    print(p.current_room.description)
+    user_input = input("Where do you want to go? ").lower()
+    if user_input == "q":
+        break
+    elif user_input == "n":
+        p.current_room = p.current_room.n_to
+    elif user_input == "s":
+        p.current_room = p.current_room.s_to
+    elif user_input == "e":
+        p.current_room = p.current_room.e_to
+    elif user_input == "w":
+        p.current_room = p.current_room.w_to
+    else:
+        print("That movement is impossible!!!")
+
+print("Game Over :(")
