@@ -50,7 +50,7 @@ earlier adventurers.The only exit is to the south. """,
     'secret': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers.The only exit is to the south. """,
-                     [Item(" ")]),
+                     []),
 
     'lagoon': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
@@ -163,7 +163,9 @@ def do_action(action, item):
 
 instructions = "Instructions: You may type in" + purple + " get/take item " + color_end + "to grab an item \nYou can type in" + green + " drop item " + color_end + " to drop an item from your inventory. \nYou may press" + cyan + " n, s, e, or w " + color_end + "to enter a new room"
 
-while True:
+game_in_progress = True
+
+while game_in_progress:
     print(f"You Are: {p.current_room.name}")
     print(f"You See: {p.current_room.description}")
     print(f"Items: {' / '.join([i.name for i in p.current_room.items])}")
@@ -172,7 +174,8 @@ while True:
         "What do you want to do? \n type 'help' for more instructions ").lower().split(" ")
     print()
     if user_input[0] == "q":
-        break
+        game_in_progress = False
+        continue
     elif user_input[0] == "help":
         print(instructions)
         print()
