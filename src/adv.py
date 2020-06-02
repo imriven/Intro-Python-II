@@ -27,34 +27,31 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers.The only exit is to the south. """,
                      [Item("torch"), Item("whip")]),
 
-    'beach': Room("Beach", """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
-earlier adventurers.The only exit is to the south. """,
+    'beach': Room("Beach", """You've you are in front of a serene picturesque seascape. 
+    A little crab woddles by with it's big claw and looks like it's waving at you. 
+    Shells and sand surround you and there is nowhere else to go but to turn back. Unless you want to
+    bask in the beauty of the seashore for a bit... """,
                      [Item("shell"), Item("sand")]),
 
-    'cabin': Room("Treasure Chamber", """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
-earlier adventurers.The only exit is to the south. """,
+    'cabin': Room("Old Cabin", """You find what you think is an old dilapidated and abandoned cottage. 
+    Upon entering you find that in fact it belongs to a old suspicious spinster. She offers you a lighter or 
+    apple for your journey. Not going to lie that apple looks suspect... """,
                      [Item("lighter"), Item("apple")]),
 
-    'meadow': Room("Treasure Chamber", """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
-earlier adventurers.The only exit is to the south. """,
+    'meadow': Room("Green Meadow", """The scene you find before you is like something out of Twilight. 
+    A beautiful meadow that has no business being out in the middle of nowhere. You spot a four leaf clover and 
+    also what looks to be a friendly vampire that puts Edward Cullen's sparkly exterior to shame """,
                    [Item("cloth"), Item("4leafclover"), Item("sparklyvampire")]),
 
-    'forest': Room("Treasure Chamber", """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
-earlier adventurers.The only exit is to the south. """,
+    'forest': Room("Deep Forest", "Theres a bunch of wood and more wood. ",
                      [Item("branch")]),
 
-    'secret': Room("Treasure Chamber", """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
-earlier adventurers.The only exit is to the south. """,
+    'secret': Room("Secret Chamber", """You must have seen some soft light coming from a crack in the wall 
+    to the east. You push on the crack and it leads to a dark room with a light emanating from the south """,
                      []),
 
-    'lagoon': Room("Treasure Chamber", """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
-earlier adventurers.The only exit is to the south. """,
+    'lagoon': Room("Blue Lagoon", """You've found a different type of treasure. Though the gold you sought
+    after. This lagoon is beautifully lit with a rare type of glowsnail. """,
                      [Item("glowsnails")]),
 }
 
