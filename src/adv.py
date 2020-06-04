@@ -15,31 +15,31 @@ room = {
                      "North of you, the cave mount beckons",
                      [Item("candlestick"), Item("knife")]),
 
-    'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
+    'foyer':    Room("In the Foyer", """Dim light filters in from the south. Dusty
 passages run north and east. """,
                      [Item("chair")]),
 
-    'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
+    'overlook': Room("At the Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm. """,
                      [Item("rock"), Item("spear")]),
 
-    'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
+    'narrow':   Room("In the Narrow Passage", """The narrow passage bends here from west
 to north.The smell of gold permeates the air. """,
                      [Item("gold"), Item("herbs")]),
 
-    'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
+    'treasure': Room("Inside the Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers.The only exit is to the south. """,
                      [Item("torch"), Item("whip")]),
 
-    'beach': Room("Beach", """You've you are in front of a serene picturesque seascape. 
+    'beach': Room("At the Beach", """You've you are in front of a serene picturesque seascape. 
     A little crab woddles by with it's big claw and looks like it's waving at you. 
     Shells and sand surround you and there is nowhere else to go but to turn back. Unless you want to
     bask in the beauty of the seashore for a bit... """,
                      [Item("shell"), Item("sand")]),
 
-    'cabin': Room("Old Cabin", """You find what you think is an old dilapidated and abandoned cottage. 
+    'cabin': Room("Inside an Old Cabin", """You find what you think is an old dilapidated and abandoned cottage. 
     Upon entering you find that in fact it belongs to a old suspicious spinster. She offers you a lighter or 
     apple for your journey. Not going to lie that apple looks suspect... """,
                      [Item("lighter"), Item("apple")]),
@@ -114,6 +114,10 @@ cyan = Color.CYAN
 red = Color.RED
 green = Color.GREEN
 
+#char-var
+i = "\033[6;3H"
+c = chr(27) + "[2J"
+
 def change_room(direction):
     try:
         if direction == "n":
@@ -171,34 +175,39 @@ text = colored("Press enter to continue...", attrs=['blink'])
 cprint(figlet_format('CS Game!', font='epic'),
        'green', attrs=['bold'])
 input(text)
-print(chr(27) + "[2J")
+print(c)
 
-game_in_progress = True
-
-i = "\033[6;3H"
-
-while game_in_progress:
+def start_game():
     print(i)
+    print(c)
     print(f"You Are: {p.current_room.name}")
     print(f"You See: {p.current_room.description}")
     print(f"Items: {' / '.join([i.name for i in p.current_room.items])}")
     print()
-    user_input = input(
-        "What do you want to do? \n type 'help' for more instructions ").lower().split(" ")
-    print()
-    if user_input[0] == "q":
-        game_in_progress = False
-        continue
-    elif user_input[0] == "help":
-        print(instructions)
+
+start_game()
+
+
+def game():
+    game_in_progress = True
+    while game_in_progress:
+        user_input = input(
+            "What do you want to do? \n type 'help' for more instructions ").lower().split(" ")
         print()
-        continue
-    if len(user_input) == 1:
-        change_room(*user_input)
-    elif len(user_input) == 2:
-        do_action(*user_input)
-    else:
-        print(red + "unknown command" + color_end)
+        if user_input[0] == "q":
+            game_in_progress = False
+            continue
+        elif user_input[0] == "help":
+            print(instructions)
+            print()
+            continue
+        if len(user_input) == 1:
+            change_room(*user_input)
+        elif len(user_input) == 2:
+            do_action(*user_input)
+        else:
+            print(red + "unknown command" + color_end)
 
 
+game()
 print(blue + "Game Over :(" + color_end)
