@@ -1,3 +1,9 @@
+import sys
+from colorama import init
+init(strip=not sys.stdout.isatty()) # strip colors if stdout is redirected
+from termcolor import cprint, colored 
+from pyfiglet import figlet_format
+
 from room import Room
 from player import Player
 from item import Item
@@ -158,11 +164,21 @@ def do_action(action, item):
         if item == "inventory":
             print(f"{[i.name for i in p.inventory]}")
 
-instructions = "Instructions: You may type in" + purple + " get/take item " + color_end + "to grab an item \nYou can type in" + green + " drop item " + color_end + " to drop an item from your inventory. \nYou may press" + cyan + " n, s, e, or w " + color_end + "to enter a new room"
+instructions = "Instructions: You may type in" + purple + " get/take item " + color_end + "to grab an item \nYou can type in" + green + " drop item " + color_end + " to drop an item from your inventory. \nYou may press" + cyan + " n, s, e, or w " + color_end + "to enter a new room.  \nPress q to quit"
+text = colored("Press enter to continue...", attrs=['blink'])
+
+
+cprint(figlet_format('CS Game!', font='epic'),
+       'green', attrs=['bold'])
+input(text)
+print(chr(27) + "[2J")
 
 game_in_progress = True
 
+i = "\033[6;3H"
+
 while game_in_progress:
+    print(i)
     print(f"You Are: {p.current_room.name}")
     print(f"You See: {p.current_room.description}")
     print(f"Items: {' / '.join([i.name for i in p.current_room.items])}")
